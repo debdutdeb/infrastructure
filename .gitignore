@@ -4,4 +4,5 @@
 **/*.tfvars
 
 
-public_ips
+**/hosts.yml
+**/hosts.yaml

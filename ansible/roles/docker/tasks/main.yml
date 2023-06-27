@@ -1,0 +1,8 @@
+---
+# tasks file for docker
+- name: Run official script
+  ansible.builtin.shell:
+    cmd: "curl -L get.docker.com | sh"
+- name: Check docker is installed
+  ansible.builtin.shell:
+    cmd: docker info
