@@ -28,7 +28,14 @@ resource "aws_security_group" "cluster_group" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  // TODO: add entry for rke communication
+  ingress {
+    description = "rke"
+    from_port = 6443
+    to_port = 6443
+    protocol = "tcp"
+    // FIXME: only allow the cluster to communicate
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
 resource "aws_launch_template" "servers" {
