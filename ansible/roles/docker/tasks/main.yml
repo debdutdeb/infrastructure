@@ -1,8 +1,24 @@
 ---
 # tasks file for docker
+- name: Check docker binary
+  ansible.builtin.stat:
+    path: /usr/bin/docker
+  register: docker_binary_stat
 - name: Run official script
+  become: true
+  when: docker_binary_stat.stat.exists != true
   ansible.builtin.shell:
     cmd: "curl -L get.docker.com | sh"
-- name: Check docker is installed
+- name: Add user to docker group
+  become: yes
+  ansible.builtin.user:
+    name: ubuntu
+    append: true
+    groups: docker
+# - name: Restart connection
+#   ansible.builtin.meta:
+#     free_form: reset_connection
+- name: Check docker is working
+  become_user: ubuntu # forces a user switch/relogin to refresh groups
   ansible.builtin.shell:
     cmd: docker info

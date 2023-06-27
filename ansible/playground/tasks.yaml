@@ -2,6 +2,5 @@
 - hosts: all
   name: Init
   remote_user: ubuntu
-  become: true
   roles:
     - role: roles/docker
